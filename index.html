@@ -1,0 +1,199 @@
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+  &lt;title&gt;Pesawat Insights - Flight Trends Dashboard&lt;/title&gt;
+  &lt;meta name=&quot;description&quot; content=&quot;A polished static site highlighting the strongest flight-related trend: pesawat (airplane). Explore trend data, quick insights, and a lightweight, accessible, responsive single-page design suitable for GitHub Pages.&quot; /&gt;
+  &lt;style&gt;
+    :root{
+      --bg: #0b0f14;
+      --card: #141b22;
+      --text: #e8f0f5;
+      --muted: #a6b5c3;
+      --accent: #4ea8ff;
+      --accent-2: #7c5cff;
+      --warning: #ffb020;
+      --shadow: 0 10px 25px rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: radial-gradient( circle at 20% -10%, rgba(78,168,255,.15), transparent 40%), radial-gradient( circle at 100% 0%, rgba(124,92,255,.15), transparent 40%), var(--bg); color: var(--text); font-family: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Arial, sans-serif; }
+    a { color: var(--accent); text-decoration: none; }
+    a:focus { outline: 3px solid #fff; outline-offset: 2px; }
+    header { position: sticky; top: 0; z-index: 50; background: rgba(10,14,20,.9); backdrop-filter: saturate(1.2) blur(6px); border-bottom: 1px solid rgba(255,255,255,.05); }
+    .container { width: 90%; max-width: 1100px; margin: 0 auto; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .3px; }
+    .brand-mark { width: 26px; height: 26px; border-radius: 6px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: inline-block; box-shadow: inset 0 0 6px rgba(255,255,255,.4); }
+    .tagline { color: var(--muted); font-size: 12px; }
+    ul[role=&quot;navigation&quot;] { list-style: none; display: flex; gap: 16px; padding: 0; margin: 0; }
+    li { }
+    main { padding: 40px 0; }
+    .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; align-items: center; padding: 40px 0; }
+    .hero h1 { font-size: 2.6rem; line-height: 1.15; margin: 0 0 12px; }
+    .hero p { color: var(--muted); font-size: 1.05rem; margin-bottom: 18px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 999px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; border: 0; cursor: pointer; font-weight: 600; }
+    .btn.secondary { background: #1f2a32; color: #e9f0f7; border: 1px solid rgba(255,255,255,.15); }
+    .quick-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .stat { background: var(--card); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); }
+    .stat h3 { margin: 0; font-size: 0.95rem; color: var(--muted); }
+    .stat .value { font-size: 1.4rem; font-weight: 700; margin-top: 6px; }
+    aside { background: rgba(20,26,32,.9); border-radius: 14px; padding: 16px; border: 1px solid rgba(255,255,255,.05); }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: var(--card); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 120px; }
+    .card h4 { margin: 0 0 8px; font-size: 1rem; }
+    .card .data { font-weight: 700; font-size: 1.3rem; margin-top: 6px; }
+    .card .sub { color: var(--muted); font-size: .85rem; margin-top: auto; }
+    footer { text-align: center; padding: 28px 0; color: var(--muted); font-size: .9rem; }
+
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; padding: 20px 0; }
+      .quick-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+      .quick-stats { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2rem; }
+    }
+
+    /* Accessibility helpers (reduce motion) */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    /* Skip link focus */
+    .skip-link { position: absolute; left: -999px; top: -999px; }
+    .skip-link:focus { position: fixed; left: 12px; top: 12px; background: #111; color: #fff; padding: 8px 12px; border-radius: 6px; z-index: 999; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;a href=&quot;#content&quot; class=&quot;skip-link&quot; aria-label=&quot;Skip to content&quot;&gt;Skip to content&lt;/a&gt;
+
+  &lt;header aria-label=&quot;Site header&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;nav aria-label=&quot;Main navigation&quot; role=&quot;navigation&quot; &gt;
+        &lt;div class=&quot;brand&quot; aria-label=&quot;Brand&quot;&gt;
+          &lt;span class=&quot;brand-mark&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+          &lt;span&gt;Pesawat Insights&lt;/span&gt;
+          &lt;span class=&quot;tagline&quot; aria-hidden=&quot;true&quot; style=&quot;margin-left:6px;&quot;&gt;Flight Trends&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;ul role=&quot;navigation&quot; aria-label=&quot;Primary&quot;&gt;
+          &lt;li&gt;&lt;a href=&quot;#trends&quot; aria-label=&quot;Go to trends section&quot;&gt;Trends&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#about&quot; aria-label=&quot;Go to about section&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;main id=&quot;content&quot; tabindex=&quot;-1&quot;&gt;
+    &lt;section class=&quot;container hero&quot; aria-label=&quot;Hero section&quot;&gt;
+      &lt;div&gt;
+        &lt;h1&gt;Pesawat Trends Dashboard&lt;/h1&gt;
+        &lt;p&gt;Strongest opportunity identified: pesawat (airplane). A lightweight, production-ready static site that presents fast, accessible trend insights about flight-related searches and topics. Explore a clean, responsive, single-page design you can publish on GitHub Pages.&lt;/p&gt;
+        &lt;button class=&quot;btn&quot; id=&quot;cta&quot; aria-label=&quot;Explore trends&quot;&gt;
+          &lt;span&gt;Explore Trends&lt;/span&gt;
+          &lt;span aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;div class=&quot;quick-stats&quot; aria-label=&quot;Key trend metrics&quot; style=&quot;margin-top:14px;&quot;&gt;
+          &lt;div class=&quot;stat&quot; role=&quot;group&quot; aria-label=&quot;Search volume for pesawat&quot;&gt;
+            &lt;h3&gt;Search volume&lt;/h3&gt;
+            &lt;div class=&quot;value&quot; aria-live=&quot;polite&quot;&gt;10,000&lt;/div&gt;
+            &lt;div class=&quot;sub&quot;&gt;pesawat (airplane)&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;stat&quot; role=&quot;group&quot; aria-label=&quot;Implied momentum&quot;&gt;
+            &lt;h3&gt;Momentum&lt;/h3&gt;
+            &lt;div class=&quot;value&quot; aria-live=&quot;polite&quot;&gt;+1000%&lt;/div&gt;
+            &lt;div class=&quot;sub&quot;&gt;last 24h&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;stat&quot; role=&quot;group&quot; aria-label=&quot;Trend category&quot;&gt;
+            &lt;h3&gt;Category&lt;/h3&gt;
+            &lt;div class=&quot;value&quot; aria-live=&quot;polite&quot;&gt;Law and Government&lt;/div&gt;
+            &lt;div class=&quot;sub&quot;&gt;Public interest signals&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;aside aria-label=&quot;Preview illustration&quot; style=&quot;min-height:180px; display:flex; align-items:center; justify-content:center;&quot;&gt;
+        &lt;svg width=&quot;100%&quot; height=&quot;180&quot; viewBox=&quot;0 0 400 180&quot; role=&quot;img&quot; aria-label=&quot;Abstract airplane illustration&quot;&gt;
+          &lt;defs&gt;
+            &lt;linearGradient id=&quot;grad&quot; x1=&quot;0&quot; x2=&quot;1&quot; y1=&quot;0&quot; y2=&quot;1&quot;&gt;
+              &lt;stop stop-color=&quot;#4ea8ff&quot; offset=&quot;0&quot;/&gt;
+              &lt;stop stop-color=&quot;#7c5cff&quot; offset=&quot;1&quot;/&gt;
+            &lt;/linearGradient&gt;
+          &lt;/defs&gt;
+          &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;400&quot; height=&quot;180&quot; fill=&quot;transparent&quot;/&gt;
+          &lt;path d=&quot;M20,100 C120,60 180,40 320,60&quot; stroke=&quot;url(#grad)&quot; stroke-width=&quot;6&quot; fill=&quot;none&quot; /&gt;
+          &lt;polygon points=&quot;320,60 360,50 360,70&quot; fill=&quot;url(#grad)&quot;/&gt;
+          &lt;circle cx=&quot;60&quot; cy=&quot;110&quot; r=&quot;4&quot; fill=&quot;#fff&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/aside&gt;
+    &lt;/section&gt;
+
+    &lt;section id=&quot;trends&quot; class=&quot;container&quot; aria-label=&quot;Trends overview&quot; style=&quot;padding-top:0;&quot;&gt;
+      &lt;h2 style=&quot;font-size:1.6rem; margin: 28px 0 12px;&quot;&gt;Top trend insight&lt;/h2&gt;
+      &lt;div class=&quot;grid&quot; aria-label=&quot;Trend cards&quot;&gt;
+        &lt;article class=&quot;card&quot; aria-label=&quot;Trend card pesawat overview&quot;&gt;
+          &lt;h4&gt;Pesawat interest overview&lt;/h4&gt;
+          &lt;div class=&quot;data&quot; aria-live=&quot;polite&quot;&gt;Pesawat: 10,000 searches&lt;/div&gt;
+          &lt;p class=&quot;sub&quot; style=&quot;margin:6px 0 0;&quot;&gt;Momentum: 1000% increase in last day. Category: Law and Government signals.&lt;/p&gt;
+        &lt;/article&gt;
+        &lt;article class=&quot;card&quot; aria-label=&quot;Trend card geography&quot;&gt;
+          &lt;h4&gt;Geography signals&lt;/h4&gt;
+          &lt;div class=&quot;data&quot; aria-live=&quot;polite&quot;&gt;geo: MY&lt;/div&gt;
+          &lt;p class=&quot;sub&quot; style=&quot;margin:6px 0 0;&quot;&gt;Trends localized to Malaysia. Consider local policy or regulation contexts.&lt;/p&gt;
+        &lt;/article&gt;
+        &lt;article class=&quot;card&quot; aria-label=&quot;Trend card actions&quot;&gt;
+          &lt;h4&gt;Quick actions&lt;/h4&gt;
+          &lt;div class=&quot;data&quot; aria-live=&quot;polite&quot;&gt;Add to project plan&lt;/div&gt;
+          &lt;p class=&quot;sub&quot; style=&quot;margin:6px 0 0;&quot;&gt;Draft a lightweight landing for travel info or policy updates.&lt;/p&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id=&quot;about&quot; class=&quot;container&quot; aria-label=&quot;About section&quot; style=&quot;padding: 40px 0 60px;&quot;&gt;
+      &lt;div class=&quot;grid&quot; style=&quot;grid-template-columns: 1fr 1fr;&quot;&gt;
+        &lt;div class=&quot;card&quot; aria-label=&quot;About card&quot;&gt;
+          &lt;h4&gt;Purpose&lt;/h4&gt;
+          &lt;div class=&quot;data&quot; style=&quot;font-size:1rem; font-weight:500;&quot;&gt;A polished, single-page static site to showcase a high-opportunity trend (pesawat). Fully accessible and responsive for GitHub Pages.&lt;/div&gt;
+          &lt;p class=&quot;sub&quot; style=&quot;margin-top:8px;&quot;&gt;Built with semantic HTML, embedded CSS, and vanilla JavaScript. No build tools or dependencies required.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;card&quot; aria-label=&quot;Accessibility and performance&quot;&gt;
+          &lt;h4&gt;Accessibility &amp; Performance&lt;/h4&gt;
+          &lt;div class=&quot;data&quot; style=&quot;font-size:1rem; font-weight:500;&quot;&gt;Keyboard navigable, semantic landmarks, ARIA labels, and fast load times.&lt;/div&gt;
+          &lt;p class=&quot;sub&quot; style=&quot;margin-top:8px;&quot;&gt;Responsive grid, prefers-reduced-motion, and a color palette with accessible contrast.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer aria-label=&quot;Site footer&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;p&gt;Pesawat Insights • Static site template for trend-driven opportunities&lt;/p&gt;
+      &lt;p&gt;&lt;small&gt;Generated as a production-ready single-page site suitable for GitHub Pages.&lt;/small&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/footer&gt;
+
+  &lt;script&gt;
+    (function(){
+      // Lightweight enhancement: smooth-scroll for hero CTA
+      const cta = document.getElementById(&#39;cta&#39;);
+      if (cta) {
+        cta.addEventListener(&#39;click&#39;, function(){
+          const target = document.getElementById(&#39;trends&#39;);
+          if (target) {
+            target.scrollIntoView({behavior:&#39;smooth&#39;, block:&#39;start&#39;});
+          }
+        });
+      }
+
+      // Simple demo: announce initial load some data
+      const live = document.querySelector(&#39;[aria-live=&quot;polite&quot;]&#39;);
+      if (live) {
+        setTimeout(function(){
+          live.textContent = &#39;Pesawat trend snapshot loaded: 10,000 searches, momentum +1000%&#39;;
+        }, 300);
+      }
+    })();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+INDEX_HTML_END
